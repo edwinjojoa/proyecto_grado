@@ -2,31 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-function Categoria() {
-  const [categorias, setCategoria] = useState([]);
-  const [categoria, setCategoriaInput] = useState('');
+function Ganado() {
+  const [ganados, setGanados] = useState([]);
+  const [categoria, setCategoria] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [creado, setCreado] = useState('');
   const [editado, setEditado] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [categoriaToDelete, setCategoriaToDelete] = useState(null);
-  const [categoriaId, setCategoriaId] = useState(null); // Nuevo estado para almacenar el ID de la categoría a editar
+  const [ganadoToDelete, setGanadoToDelete] = useState(null);
+  const [ganadoId, setGanadoId] = useState(null); // Nuevo estado para almacenar el ID del ganado a editar
   const [searchQuery, setSearchQuery] = useState('');
 
+
+
+  
+
   useEffect(() => {
-    cargarCategorias();
+    cargarGanados();
   }, []);
 
   function handleModalOpen(id) {
     if (id) {
-      const categoria = categorias.find((c) => c.id === id);  
-      if (categoria) {
-        setCategoria(categoria.categoria);
-        setDescripcion(categoria.descripcion);
-        setCreado(categoria.creado);
-        setEditado(categoria.editado);
-        setCategoriaId(id);
+      const ganado = ganados.find((g) => g.id === id);
+      if (ganado) {
+        setCategoria(ganado.categoria);
+        setDescripcion(ganado.descripcion);
+        setCreado(ganado.creado);
+        setEditado(ganado.editado);
+
+        setGanadoId(id);
         setShowModal(true);
       }
     } else {
@@ -44,35 +49,35 @@ function Categoria() {
     setShowModal(false);
   }
 
-  const cargarCategorias = async () => {
+  const cargarGanados = async () => {
     try {
       const response = await axios.get('http://localhost:8081/api/categorias/');
-      setCategoria(response.data);
+      setGanados(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const buscarCategoria = async (query) => {
+  const buscarGanados = async (query) => {
     try {
       const response = await axios.get(`http://localhost:8081/api/categorias/?search=${query}`);
-      setCategoria(response.data);
+      setGanados(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const crearCategoria = async (e) => {
+  const crearGanado = async (e) => {
     e.preventDefault();
     try {
-      const nuevaCategoria = {
-        categoria: categoria,
-        descripcion: descripcion,
-        creado: creado,
-        editado: editado,
+      const nuevoGanado = {
+        categoria:categoria,
+        descripcion:descripcion,
+        creado:creado,
+        editado:editado,
       };
-      await axios.post('http://localhost:8081/api/categorias/', nuevaCategoria);
-      cargarCategorias();
+      await axios.post('http://localhost:8081/api/categorias/', nuevoGanado);
+      cargarGanados();
       resetForm();
       handleModalClose();
     } catch (error) {
@@ -80,69 +85,74 @@ function Categoria() {
     }
   };
 
-  const editarCategoria = async (e) => {
+
+ 
+
+  const editarGanado = async (e) => {
+    console.log(e);
     e.preventDefault();
     try {
-      const categoriaModificada = {
-        categoria: categoria,
-        descripcion: descripcion,
-        creado: creado,
-        editado: editado,
+      const ganadoModificado = {
+        categoria:categoria,
+        descripcion:descripcion,
+        creado:creado,
+        editado:editado,
       };
-      await axios.put(`http://localhost:8081/api/categorias/${categoriaId}/`, categoriaModificada);
-      cargarCategorias();
+      console.log(ganadoModificado)
+      await axios.put(`http://localhost:8081/api/categorias/${ganadoId}/`, ganadoModificado);
+      cargarGanados();
       resetForm();
       handleModalClose();
     } catch (error) {
-      console.error("error de conexión", error);
+      console.error("error de conexion",error);
     }
   };
 
-  const eliminarCategoria = (categoria) => {
-    setCategoriaToDelete(categoria);
+  const eliminarGanado = (ganado) => {
+    setGanadoToDelete(ganado);
     setShowDeleteModal(true);
   };
 
   const handleEliminarConfirmado = async (id) => {
     try {
       await axios.delete(`http://localhost:8081/api/categorias/${id}/delete/`);
-      cargarCategorias();
+      cargarGanados();
       setShowDeleteModal(false);
     } catch (error) {
       console.error(error);
     }
   };
-
   const resetForm = () => {
-    setCategoria('');
-    setDescripcion('');
-    setCreado('');
-    setEditado('');
-    setCategoriaId(null);
+        setCategoria('');
+        setDescripcion('');
+        setCreado('');
+        setEditado('');
+
+    setGanadoId(null);
   };
 
   return (
     <div className="container">
       <div className="container">
-        <h1 className="mt-4 text-center h2">LISTA DE CATEGORÍA</h1> <br />
+        <h1 className="mt-4 text-center h2">LISTA DE CATEGORIA</h1> <br />
         
         <button
-          type="button"
-          className="btn btn-success"
-          onClick={() => {
-            handleModalOpen();
-            setCategoriaId(null);
-          }}
-        >
-          Crear Categoría
-        </button>
-        <br /><br /><br />
-        <form className="mb-4">
+  type="button"
+  className="btn btn-success"
+  onClick={() => {
+    handleModalOpen();
+    setGanadoId(null);
+  }}
+>
+  Crear la categoria
+</button>
+        <br></br><br></br><br></br>
+         <form className="mb-4">
           <div className="input-group">
             <input
               type="text"
               className="form-control"
-              placeholder="Buscar categoría"
+              placeholder="Buscar ganado"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -150,57 +160,65 @@ function Categoria() {
               <button
                 className="btn btn-primary"
                 type="button"
-                onClick={() => buscarCategoria(searchQuery)}
+                onClick={() => buscarGanados(searchQuery)}
               >
                 Buscar
               </button>
             </div>
           </div>
         </form>
-        <br /><br />
+ 
+        <br></br><br></br>
+
         <table className="table table-responsive-sm table-striped table-bordered">
-          <thead className="thead-dark">
-            <tr>
-              <th>Categoría</th>
-              <th>Descripción</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categorias.map((categoria) => (
-              <tr key={categoria.id}>
-                <td>{categoria.categoria}</td>
-                <td>{categoria.descripcion}</td>
-                <td>
-                  <div className="d-flex flex-column flex-sm-row">
-                    <button className="btn btn-primary mb-2 mb-sm-0 mr-sm-2" onClick={() => handleModalOpen(categoria.id)}>Editar</button>
-                    <button className="btn btn-danger" onClick={() => eliminarCategoria(categoria)}>Eliminar</button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  <thead className="thead-dark">
+    <tr>
+      <th>Categoría</th>
+      <th>Descripción</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {ganados.map((ganado) => (
+      <tr key={ganado.id}>
+        <td>{ganado.categoria}</td>
+        <td>{ganado.descripcion}</td>
+        <td>
+          <div className="d-flex flex-column flex-sm-row">
+            <button className="btn btn-primary mb-2 mb-sm-0 mr-sm-2" onClick={() => handleModalOpen(ganado.id)}>Editar</button>
+            <button className="btn btn-danger" onClick={() => eliminarGanado(ganado)}>Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
       </div>
 
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {categoriaId ? 'Editar Categoría' : 'Crear Categoría'}
+            {ganadoId ? 'Editar la categoria' : 'Crear categoria'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={categoriaId ? editarCategoria : crearCategoria}>
+          <form onSubmit={ganadoId ? editarGanado : crearGanado}>
+          
+            
+            
             <div className="mb-3">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Categoría"
+                placeholder="Categoria"
                 value={categoria}
-                onChange={(e) => setCategoriaInput(e.target.value)}
+                onChange={(e) => setCategoria(e.target.value)}
                 required
               />
             </div>
+           
+            
             <div className="mb-3">
               <input
                 type="text"
@@ -211,6 +229,8 @@ function Categoria() {
                 required
               />
             </div>
+            
+           
             <Button variant="secondary" onClick={handleCancelar}>
               Cancelar
             </Button>
@@ -221,25 +241,28 @@ function Categoria() {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Eliminar Categoría</Modal.Title>
+          <Modal.Title>Eliminar la categoria</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Estás seguro de que deseas eliminar la categoría?</p>
-          <p>Nombre: {categoriaToDelete?.categoria}</p>
+          <p>¿Estás seguro de que deseas eliminar la categoria?</p>
+          <p>Nombre: {ganadoToDelete?.categoria}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
             Cancelar
           </Button>
-          <Button variant="danger" onClick={() => handleEliminarConfirmado(categoriaToDelete?.id)}>
+          <Button variant="danger" onClick={() => handleEliminarConfirmado(ganadoToDelete?.id)}>
             Eliminar
           </Button>
         </Modal.Footer>
       </Modal>
+
+
+     
     </div>
   );
 }
 
-export default Categoria;
+export default Ganado;

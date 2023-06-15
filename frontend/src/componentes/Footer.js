@@ -20,16 +20,15 @@ const Footer = () => {
          </a>
        </div>
      </section>
-     <section className="p-4 pt-0">
+     <section className="p-12 pt-0">
        <div className="container text-center text-md-start">
          <div className="row">
-           <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-             <h6 className="text-uppercase fw-bold mb-4">Ganadero</h6>
-             <p>
-               Esta aplicación es un sistema de gestión de ganado que te
+           <div className="col-md-12 col-lg-12 col-xl-11 mx-auto mb-10">
+             <span> <b>APLICACION GANADERA, </b>
+                Esta aplicación es un sistema de gestión de ganado que te
                permite crear, editar y eliminar registros de ganado de una
                manera sencilla.
-             </p>
+             </span>
            </div>
          </div>
        </div>

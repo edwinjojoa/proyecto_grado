@@ -9,6 +9,7 @@ import Login from './pages/login';  // Agrega la importación del componente Log
 import logo from '../logo.png';
 import Footer from './Footer';
 import Categoria from './pages/Categoria';
+import Raza from './pages/Raza';
 
 const Menu = () => {
   return (
@@ -40,7 +41,12 @@ const Menu = () => {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/categoria">
-                    <FaCentos /> Categoria
+                    <FaCentos /> CATEGORIA
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/raza">
+                    <FaCentos /> RAZA
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -67,6 +73,7 @@ const Menu = () => {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/categoria" element={<Categoria />} />
+        <Route path="/raza" element={<Raza />} />
         <Route path="/ganaderia" element={<Ganado />} />
         <Route path="/graficos" element={<Graficos />} />
         <Route path="/salir" element={<Login onLogin={() => {}} />} />
