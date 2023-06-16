@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from .models import Ganado, Categoria, Raza
-from .serializers import GanadoSerializer,CategoriaSerializer, RazaSerializer 
+from .models import Ganado, Categoria, Raza, LitrosDeLeche
+from .serializers import GanadoSerializer,CategoriaSerializer, RazaSerializer, LitrosDeLecheSerializer 
 from django.views.generic import View
 
 
@@ -66,3 +66,17 @@ class RazaDestroyAPIView(generics.DestroyAPIView):
     queryset = Raza.objects.all()
     serializer_class = RazaSerializer
     
+#litros de leche
+class LitrosDeLecheListCreateAPIView(generics.ListCreateAPIView):
+    queryset = LitrosDeLeche.objects.all()
+    serializer_class = LitrosDeLecheSerializer
+
+class LitrosDeLecheRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LitrosDeLeche.objects.all()
+    serializer_class = LitrosDeLecheSerializer
+
+class LitrosDeLecheDestroyAPIView(generics.DestroyAPIView):
+    queryset = LitrosDeLeche.objects.all()
+    serializer_class = LitrosDeLecheSerializer
+    
+

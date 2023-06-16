@@ -15,3 +15,8 @@ class RazaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Raza
         fields = ['id', 'raza', 'descripcion','creado','editado']
+
+class LitrosDeLecheSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Raza
+        fields = ['id', 'cantidad','vrUnitario', 'descripcion','creado','editado']

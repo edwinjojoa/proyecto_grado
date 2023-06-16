@@ -34,7 +34,10 @@ urlpatterns = [
     path('api/razas/<int:pk>/delete/', views.RazaDestroyAPIView.as_view(), name='api-delete-razas'),
     path('api/razas/<int:pk>/', views.RazaRetrieveUpdateDestroyView.as_view(), name='razas-retrieve-update-destroy'),
 
-    #graficos
+    #Litros de leche 
+    path('api/litrosDeLeche/', views.LitrosDeLecheListCreateAPIView.as_view(), name='api-list-create-litrosDeLeche'),
+    path('api/litrosDeLeche/<int:pk>/delete/', views.LitrosDeLecheDestroyAPIView.as_view(), name='api-delete-litrosDeLeche'),
+    path('api/litrosDeLeche/<int:pk>/', views.LitrosDeLecheRetrieveUpdateDestroyView.as_view(), name='litrosDeLeche-retrieve-update-destroy'),
 
     
 

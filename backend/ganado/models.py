@@ -37,3 +37,14 @@ class Raza(models.Model):
 
     def __str__(self):
         return self.raza
+    
+class LitrosDeLeche(models.Model):
+    id =models.AutoField(primary_key=True)
+    cantidad = models.BigIntegerField()
+    vrUnitario = models.BigIntegerField()
+    descripcion = models.CharField(max_length=250)
+    creado = models.DateTimeField(auto_now_add=True)
+    editado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.id)
