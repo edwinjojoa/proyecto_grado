@@ -7,6 +7,7 @@ import logo from './../../logo.png';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -18,7 +19,12 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onLogin();
+
+    if (username === 'admin@gmail.com' && password === '123') {
+      onLogin();
+    } else {
+      setError('Usuario o contraseña incorrectos');
+    }
   };
 
   return (
@@ -36,13 +42,18 @@ const Login = ({ onLogin }) => {
                   <img src={logo} alt="Logo" width="100" height="60" />
                 </div>
                 <div className="col-lg-8">
-                  <label>SISTEMA DE INFORMACIÓN PARA <br /><b>GANADERIA</b></label>
+                  <label>
+                    SISTEMA DE INFORMACIÓN PARA <br />
+                    <b>GANADERIA</b>
+                  </label>
                 </div>
               </div>
               <hr />
               <div className="card-body d-flex flex-column justify-content-center">
-                <h2 className="card-title">Inicio de Sesión</h2><br/>
+                <h2 className="card-title">Inicio de Sesión</h2>
+                <br />
                 <form onSubmit={handleSubmit}>
+                  {error && <div className="alert alert-danger">{error}</div>}
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       <FaUser className="me-2" />
@@ -55,6 +66,7 @@ const Login = ({ onLogin }) => {
                       placeholder="Ingrese usuario"
                       value={username}
                       onChange={handleUsernameChange}
+                      required
                     />
                   </div>
                   <div className="mb-3">
@@ -69,9 +81,12 @@ const Login = ({ onLogin }) => {
                       className="form-control"
                       value={password}
                       onChange={handlePasswordChange}
+                      required
                     />
                   </div>
-                  <button type="submit" className="btn btn-success">Ingresar</button>
+                  <button type="submit" className="btn btn-success">
+                    Ingresar
+                  </button>
                 </form>
               </div>
             </div>
