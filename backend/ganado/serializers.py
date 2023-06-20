@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Ganado, Categoria, Raza
+from .models import Ganado, Categoria, Raza, LitrosDeLeche
 
 class GanadoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,5 +18,5 @@ class RazaSerializer(serializers.ModelSerializer):
 
 class LitrosDeLecheSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Raza
+        model = LitrosDeLeche
         fields = ['id', 'cantidad','vrUnitario', 'descripcion','creado','editado']
